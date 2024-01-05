@@ -10,6 +10,7 @@ python-docx = "*"
 drf-spectacular = "*"
 whitenoise = "*"
 psycopg2 = "*"
+pillow = "*"
 
 [dev-packages]
 
