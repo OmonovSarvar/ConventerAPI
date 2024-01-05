@@ -35,8 +35,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Django Rest Framework Room Booking'
-             ''
+    'TITLE': 'Conventer Api Swagger'
 }
 
 # Application definition
