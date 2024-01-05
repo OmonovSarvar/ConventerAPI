@@ -89,8 +89,11 @@ WSGI_APPLICATION = 'config.wsgi.app'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'verceldb',
+        'USER': 'default',
+        'PASSWORD': 'Df6kU1aOuQGH',
+        'HOST': 'ep-red-recipe-85067117-pooler.us-east-1.postgres.vercel-storage.com',
     }
 }
 
