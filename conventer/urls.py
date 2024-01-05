@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import TextView, DocxLatinAPIView, DocxCyrillicAPIView, TxtLatinAPIView, TxtCyrillicAPIView
+from .views import TextView, DocxLatinAPIView, DocxCyrillicAPIView, TxtLatinAPIView, TxtCyrillicAPIView, migration
 
 urlpatterns = [
     path('', TextView.as_view(), name='text'),
@@ -8,5 +8,5 @@ urlpatterns = [
     path('docx/cyrillic', DocxCyrillicAPIView.as_view(), name='docx-cyrillic'),
     path('txt/latin', TxtLatinAPIView.as_view(), name='txt-latin'),
     path('txt/cyrillic', TxtCyrillicAPIView.as_view(), name='txt-cyrillic'),
-    path('migration', views.migration, name='migration')
+    path('migration', migration, name='migration')
 ]

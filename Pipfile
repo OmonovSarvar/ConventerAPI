@@ -9,6 +9,7 @@ djangorestframework = "*"
 python-docx = "*"
 drf-spectacular = "*"
 whitenoise = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
