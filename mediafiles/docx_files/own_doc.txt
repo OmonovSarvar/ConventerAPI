@@ -1,0 +1,84 @@
+							GENERIC VIEW							
+
+   views                 Description               Request method
+
+CreateApiView  |  Faqat yaratish uchun endpoint   |   POST
+
+RetieveApiView |  Faqat o'qish uchun endpoint(single model instance)    |   GET
+
+DestroyAPIView |  Faqat o'chirish uchun endpoint(single model instance)  |   DELETE
+
+UpdateAPIView  |  Faqat yangilash uchun endpoint(single model instance)  |   UPDATE
+
+ListAPIView    |  Faqat o'qish uchun endpoint(collection of model instance)  |   GET
+
+
+				DECORATOR IN DJANGO 
+
+decorators.py
+
+from functools import wraps
+
+from .utils import check_is_admin   <-(# Own file #)
+
+def is_admin(view_func):
+   @wraps(view_func)
+   def wrapper(request, *args, **kwargs):
+	request = check_is_admin(request)
+	response = view_func(request, *args, **kwargs)
+	return response 
+   return wrapper
+
+
+				UTILS IN DJANGO
+
+utils.py
+
+from django.core.exceptions import PermissionDenied
+
+def check_is_admin(request):
+	if request.user.is_superuser:
+		return request
+	raise PermissionDenied 
+
+
+
+||  https://ccbv.co.uk/  best site for django views ||
+
+
+Mixins bu views forms va modelsga functinonality beruvchi classlar hisoblanadi 
+
+MRO QOIDALARIGA MUVOFIQ 
+
+1. DJANGODA BASE VIEW CLASS DOIM ONGGA QARAB YURISH KERAK
+
+2. MIXINS ESA DOIM CHAPGA QARAB YURISH KERAK
+
+3. MIXINS DOIM OBJECTDAN INHERITANCE OLISH KERAK
+
+
+
+VIEW	|	BASE VIEW YOKI HAR QANDAY HAL QILUVCHI VIEW SIFATIDA
+
+REDIRECTVIEW	|	USERNI BOSHQA URLGA YONALTIRISH UCHUN
+
+TEMPLATEVIEW	|	DJANGO HTML TEMPLATELARNI KORSATISH UCHUN
+
+LISTVIEW	|	LIST OBJECT TAQDIM QILISH UCHUN 
+
+DETAILVIEW	|	BIROR ANIQ OBJECTNI KORSATISH
+
+CREATEVIEW	|	OBJECT YARATISH UCHUN
+
+UPDATEVIEW	|	OBJECT MALUMOTLARINI YANGILASH UCHUN
+
+FORMVIEW	|	FORMA SUBMIT QILISH UCHUN
+
+DELETEVIEW	|	OBJECTNI OCHIRISH UCHUN
+
+GENERIC DATA VIEWLAR	|	BIR NECHTA OBJECTLAR TOPLAMINI KORSATISH UCHUN
+
+											MRO = METHOD RESOLUTIONAL ORDER
+
+
+
