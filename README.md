@@ -1,6 +1,6 @@
-# Book Store
+# Conventer API
 
-This project is a simple Book Store built using django rest framework
+I created this project using Django rest framework
 
 ## Getting Started
 
