@@ -1,13 +1,13 @@
 from django.http import HttpResponse
+from docx import Document
 from rest_framework import status
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from mediafiles.txt_files.for_txt import txt_conventer_to_cyrillic
 from .for_text import text_convert_to_latin, text_convert_to_cyrillic
 from .serializer import DocxSerializer, TxtFileSerializer
-from mediafiles.docx_files.for_docx import docx_convert_to_latin, docx_conventer_to_cyrillic
+from conventer.for_docx import docx_convert_to_latin, docx_conventer_to_cyrillic
 
 
 class DocxLatinAPIView(APIView):
@@ -22,7 +22,11 @@ class DocxLatinAPIView(APIView):
             yolak = str(yolak)
             print(yolak)
             yolak = yolak.replace("/media/docx_files/", "")
-            response = docx_convert_to_latin(yolak)
+            text = ""
+            document = Document(f"C://Users/user/Desktop/ConventerApi/mediafiles/docx_files/{yolak}")
+            for i in document.paragraphs:
+                text += i.text
+            response = text_convert_to_latin(text)
             return Response({
                 "result": response
             })
@@ -43,9 +47,12 @@ class DocxCyrillicAPIView(APIView):
             serializer.save()
             yolak = serializer.data['docx_file']
             yolak = str(yolak)
-            print(yolak)
             yolak = yolak.replace("/media/docx_files/", "")
-            response = docx_conventer_to_cyrillic(yolak)
+            text = ""
+            document = Document(f"C://Users/user/Desktop/ConventerApi/mediafiles/docx_files/{yolak}")
+            for i in document.paragraphs:
+                text += i.text
+            response = text_convert_to_cyrillic(text)
             return Response({
                 "result": response
             })
@@ -61,14 +68,16 @@ class TxtCyrillicAPIView(APIView):
     serializer_class = TxtFileSerializer
 
     def post(self, request, *args, **kwargs):
+        text = ""
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
             yolak = serializer.data['txt']
             yolak = str(yolak)
-            print(yolak)
             yolak = yolak.replace("/media/txt_files/", "")
-            response = txt_conventer_to_cyrillic(yolak)
+            f = open(f"C://Users/user/Desktop/ConventerApi/mediafiles/txt_files/{yolak}", "r", encoding="utf-8")
+            text = f.read()
+            response = text_convert_to_cyrillic(text)
             return Response({
                 "result": response
             })
@@ -91,7 +100,9 @@ class TxtLatinAPIView(APIView):
             yolak = str(yolak)
             print(yolak)
             yolak = yolak.replace("/media/txt_files/", "")
-            response = txt_conventer_to_cyrillic(yolak)
+            f = open(f"C://Users/user/Desktop/ConventerApi/mediafiles/txt_files/{yolak}", "r", encoding="utf-8")
+            text = f.read()
+            response = text_convert_to_latin(text)
             return Response({
                 "result": response
             })
